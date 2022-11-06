@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MonthView: View {
     @ObservedObject var toDoStore : ToDoStore
-    @State private var toDoList: ToDoList = ToDoList(date: Date(), checkBoxToDos: [])
     @State private var checkBoxToDo: CheckBoxToDo = CheckBoxToDo(checkBox: false, toDo: "")
     @State private var isShowingCalender: Bool = false
     @State private var date = Date()
@@ -45,8 +44,11 @@ struct MonthView: View {
                 HStack{
                     Spacer()
                     Button("날짜추가", action: {
-                        toDoList.date = date
-                        toDoStore.toDoLists.append(toDoList)
+                        let newToDoList = ToDoList(date: date, checkBoxToDos: [])
+                        
+                        toDoStore.toDoLists.append(newToDoList)
+                        isShowingCalender = false
+                        
                     })
                         .background(.purple)
                         .padding()
