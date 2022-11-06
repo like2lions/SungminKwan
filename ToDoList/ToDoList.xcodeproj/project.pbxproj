@@ -13,6 +13,8 @@
 		F4E8F9E9291532E600CE057E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4E8F9E8291532E600CE057E /* Preview Assets.xcassets */; };
 		F4E8F9F32915528900CE057E /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8F9F22915528900CE057E /* MonthView.swift */; };
 		F4E8F9F92916529C00CE057E /* ThirtyMonth.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8F9F82916529C00CE057E /* ThirtyMonth.swift */; };
+		F4E8F9FB2917A29B00CE057E /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8F9FA2917A29B00CE057E /* ToDoList.swift */; };
+		F4E8F9FD2917A2BA00CE057E /* ToDoListStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8F9FC2917A2BA00CE057E /* ToDoListStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		F4E8F9E8291532E600CE057E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F4E8F9F22915528900CE057E /* MonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		F4E8F9F82916529C00CE057E /* ThirtyMonth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirtyMonth.swift; sourceTree = "<group>"; };
+		F4E8F9FA2917A29B00CE057E /* ToDoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
+		F4E8F9FC2917A2BA00CE057E /* ToDoListStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				F4E8F9F82916529C00CE057E /* ThirtyMonth.swift */,
+				F4E8F9FA2917A29B00CE057E /* ToDoList.swift */,
+				F4E8F9FC2917A2BA00CE057E /* ToDoListStore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -168,7 +174,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4E8F9E4291532E500CE057E /* ContentView.swift in Sources */,
+				F4E8F9FD2917A2BA00CE057E /* ToDoListStore.swift in Sources */,
 				F4E8F9F32915528900CE057E /* MonthView.swift in Sources */,
+				F4E8F9FB2917A29B00CE057E /* ToDoList.swift in Sources */,
 				F4E8F9F92916529C00CE057E /* ThirtyMonth.swift in Sources */,
 				F4E8F9E2291532E500CE057E /* ToDoListApp.swift in Sources */,
 			);
