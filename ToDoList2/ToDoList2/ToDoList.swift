@@ -21,3 +21,4 @@ struct CheckBoxToDo: Codable, Hashable, Identifiable {
     var checkBox: Bool
     var toDo: String
 }
+

@@ -59,13 +59,16 @@ struct MonthView: View {
                         .font(.largeTitle)
                 }
                 if isShowingCalender == true {
-                    DatePicker(
-                      "DatePicker",
-                      selection: $date,
-                      in: dateRange,
-                      displayedComponents: [.date]
-                    )
-                      .datePickerStyle(.graphical)
+                    ZStack{
+                        DatePicker(
+                            "DatePicker",
+                            selection: $date,
+                            in: dateRange,
+                            displayedComponents: [.date]
+                        )
+                        .datePickerStyle(.graphical)
+                        
+                    }
                 }
             }
             

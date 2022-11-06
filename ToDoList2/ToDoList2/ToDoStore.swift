@@ -24,3 +24,14 @@ class ToDoStore : ObservableObject {
     
 }
 
+//class CheckBoxToDoStore : ObservableObject {
+//
+//    @Published var checkBoxToDos: [CheckBoxToDo]
+//
+////    init (toDoLists: [ToDoList]) {
+////        self.toDoLists = toDoLists
+////    }
+//    init (checkBoxToDos: [CheckBoxToDo] = []) {
+//        self.checkBoxToDos = checkBoxToDos
+//    }
+//}

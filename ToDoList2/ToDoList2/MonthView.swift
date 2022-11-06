@@ -10,6 +10,8 @@ import SwiftUI
 struct MonthView: View {
     
     @ObservedObject var toDoStore : ToDoStore = ToDoStore()
+
+    @State private var isShowingSheet: Bool = false
     
     var body: some View {
         VStack{
@@ -26,15 +28,24 @@ struct MonthView: View {
             .edgesIgnoringSafeArea(.bottom)
             HStack{
                 Spacer()
-                Button("addButton", action: {print("dd")})
+                Button("addButton", action: {isShowingSheet.toggle()})
                     .background(.red)
                     .padding()
+                
             }
+            
         }
         .background(Color(hue: 0.129, saturation: 0.211, brightness: 0.979))
+        .sheet(isPresented: $isShowingSheet, onDismiss: didDismiss) {
+            AddModalView(toDoStore: toDoStore)
+        }
     }
-    
+    func didDismiss() {
+        // Handle the dismissing action.
+    }
 }
+    
+    
 struct MonthView_Previews: PreviewProvider {
     static var previews: some View {
         MonthView()
