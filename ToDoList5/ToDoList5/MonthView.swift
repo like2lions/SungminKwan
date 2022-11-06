@@ -45,7 +45,6 @@ struct MonthView: View {
                     Spacer()
                     Button("날짜추가", action: {
                         let newToDoList = ToDoList(date: date, checkBoxToDos: [])
-                        
                         toDoStore.toDoLists.append(newToDoList)
                         isShowingCalender = false
                         
@@ -59,7 +58,7 @@ struct MonthView: View {
                         .font(.largeTitle)
                 }
                 if isShowingCalender == true {
-                    ZStack{
+                    VStack{
                         DatePicker(
                             "DatePicker",
                             selection: $date,
@@ -100,9 +99,12 @@ struct ListCell: View {
     var body: some View {
         
         Section(header: Text("\(toDoList.date, formatter: dateFormatter)")) {
-            
-            ForEach (toDoList.checkBoxToDos) { checkBoxToDo in
-                CheckBoxToDoCell(checkBoxToDo: checkBoxToDo)
+            ZStack {
+                ForEach (toDoList.checkBoxToDos) { checkBoxToDo in
+                    CheckBoxToDoCell(checkBoxToDo: checkBoxToDo)
+                    
+                }
+                Button("할일 추가버튼", action: {})
                 
             }
 //            .onDelete(perform: deleteItems)
