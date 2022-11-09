@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ADF5E7A1291BF15E00802870 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF5E7A0291BF15E00802870 /* StartView.swift */; };
+		ADF5E7A3291BF4CE00802870 /* ExtensionColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF5E7A2291BF4CE00802870 /* ExtensionColor.swift */; };
 		F4E8F9E2291532E500CE057E /* ToDoListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8F9E1291532E500CE057E /* ToDoListApp.swift */; };
 		F4E8F9E4291532E500CE057E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8F9E3291532E500CE057E /* ContentView.swift */; };
 		F4E8F9E6291532E600CE057E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4E8F9E5291532E600CE057E /* Assets.xcassets */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		ADF5E7A0291BF15E00802870 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		ADF5E7A2291BF4CE00802870 /* ExtensionColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionColor.swift; sourceTree = "<group>"; };
 		F4E8F9DE291532E500CE057E /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4E8F9E1291532E500CE057E /* ToDoListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListApp.swift; sourceTree = "<group>"; };
 		F4E8F9E3291532E500CE057E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 				F4E8F9EF29154FBD00CE057E /* Model */,
 				F4E8F9E1291532E500CE057E /* ToDoListApp.swift */,
 				F4E8F9E3291532E500CE057E /* ContentView.swift */,
+				ADF5E7A0291BF15E00802870 /* StartView.swift */,
+				ADF5E7A2291BF4CE00802870 /* ExtensionColor.swift */,
 				F4E8F9E5291532E600CE057E /* Assets.xcassets */,
 				F4E8F9E7291532E600CE057E /* Preview Content */,
 			);
@@ -176,9 +182,11 @@
 				F4E8F9E4291532E500CE057E /* ContentView.swift in Sources */,
 				F4E8F9FD2917A2BA00CE057E /* ToDoListStore.swift in Sources */,
 				F4E8F9F32915528900CE057E /* MonthView.swift in Sources */,
+				ADF5E7A3291BF4CE00802870 /* ExtensionColor.swift in Sources */,
 				F4E8F9FB2917A29B00CE057E /* ToDoList.swift in Sources */,
 				F4E8F9F92916529C00CE057E /* ThirtyMonth.swift in Sources */,
 				F4E8F9E2291532E500CE057E /* ToDoListApp.swift in Sources */,
+				ADF5E7A1291BF15E00802870 /* StartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

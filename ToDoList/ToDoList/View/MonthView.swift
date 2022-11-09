@@ -25,16 +25,37 @@ struct MonthView: View {
     @State private var formatter = DateFormatter()
     //@State private var flag = 0
     
+    init() {
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithOpaqueBackground()
+        navBarAppearance.backgroundColor = UIColor(Color.brown4)
+        UINavigationBar.appearance().scrollEdgeAppearance = navBarAppearance
+    }
     
     var body: some View {
         NavigationStack {
             VStack {
                 List {
+                    HStack{
+                        Spacer()
+                        Text("[ To do list ]")
+                            .font(.title)
+                            .foregroundColor(Color.brown1)
+                            .bold()
+                        Spacer()
+                    }
+                    .listRowBackground(Color.brown4)
                     ForEach(toDoStore.dateLists, id:\.self) { item in
                         ListCell(now: item, toDoStore: toDoStore, isShowingCalender: $isShowingCalender)
-                    }
+                    }.listRowBackground(Color.brown1)
                 }
+                
                 .listStyle(.sidebar)
+                .background(Image("quokkaBack"))
+                .background(Color.brown4)
+
+                .scrollContentBackground(.hidden)
+
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {
@@ -49,7 +70,7 @@ struct MonthView: View {
                                 //날짜 오름차순으로 저장
                             }
                         }){
-                            Text("Add")
+                            Image(systemName: "plus").foregroundColor(.brown1)
                         }
                     }
                     ToolbarItem(placement: .principal) {
@@ -58,13 +79,13 @@ struct MonthView: View {
                             Button(action: {
                                 LastMonth()
                             }){
-                                Image(systemName: "arrow.left")
+                                Image(systemName: "arrow.left").foregroundColor(.brown1)
                             }
-                            Text(wrappedValue)
+                            Text(wrappedValue).foregroundColor(.brown1)
                             Button(action: {
                                 NextMonth()
                             }){
-                                Image(systemName: "arrow.right")
+                                Image(systemName: "arrow.right").foregroundColor(.brown1)
                             }
                         }
                     }
@@ -74,10 +95,12 @@ struct MonthView: View {
                         }){
                             Image(systemName: "calendar")
                                 .resizable()
+                                .foregroundColor(.brown1)
                                 .frame(width: 35, height: 30)
                         }
                     }
                 }
+                
                 if isShowingCalender {
                     DatePicker(
                         "",
@@ -135,6 +158,9 @@ struct ListCell: View {
             Section(header:
                         HStack {
                 Text("\(now, formatter: dateFormatter)")
+                    .font(.headline)
+                    .bold()
+                    .foregroundColor(Color.brown1)
                 Button(action: {
                     //팝업 띄워서 일정 입력받기
                     //입력한 일정을 toDo에 넣어준다
@@ -144,7 +170,7 @@ struct ListCell: View {
                     showTextField = true
                 })
                 {
-                    Image(systemName: "plus")
+                    Image(systemName: "plus").foregroundColor(Color.brown1)
                 }
                 .alert("To Do", isPresented: $showTextField, actions: {
                     TextField("할일을 입력하세요", text: $alertInput)
@@ -152,6 +178,7 @@ struct ListCell: View {
                         toDoStore.toDoLists[now]!.toDo[alertInput] = false
                         if alertInput != "" {
                             toDoStore.toDoLists[now]!.tasks.append(alertInput)
+                            alertInput = ""
                         }
                     })
                 }, message: {
@@ -193,10 +220,10 @@ struct CheckBoxToDoCell: View {
                         toDoStore.toDoLists[dates]!.toDo[tasks]! == true
                         ? "xmark.square"
                         : "square"
-                    )
+                    ).foregroundColor(Color.brown4)
                 }
             )
-            Text(tasks)
+            Text(tasks).foregroundColor(Color.brown4)
         }
     }
 }

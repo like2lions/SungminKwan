@@ -8,41 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isLogin: Bool = true
+    
     var body: some View {
-        TabView {
+        ZStack {
             MonthView()
-                .tabItem{
-                    Image(systemName: "house")
-                    Text("Monthly")
-                }
-            TodayView()
-                .tabItem{
-                    Image(systemName: "house")
-                    Text("Today")
-                }
-            NotyetView()
-                .tabItem {
-                    Image(systemName: "house")
-                    Text("Not yet")
-                }
+        }
+        .fullScreenCover(isPresented: $isLogin) {
+            StartView(isLogin: $isLogin)
         }
     }
-}
-
-struct TodayView: View {
-    var body: some View {
-        VStack{
-            Text("1")
-        }
-    }
-}
-
-struct NotyetView: View {
-    var body: some View {
-        VStack{
-            Text("1")
-        }
-    }
+    
 }
 
 
