@@ -7,9 +7,9 @@ import SwiftUI
 
 struct MonthView: View {
     @State private var now = Date()
+    //현재 날짜
     @ObservedObject var toDoStore: ToDoStore = ToDoStore()
-    @State private var checkBoxToDo: CheckBoxToDo = CheckBoxToDo(checkBox: false, toDo: "")
-    @State private var toDoList: ToDoList = ToDoList(date: Date(), checkBoxToDos: [])
+    //리스트 담을 객체 (딕셔너리 형태임)
     @State private var months: String = "2022-11"
     
     var wrappedValue: String {
@@ -19,44 +19,35 @@ struct MonthView: View {
         }
     }
     
-//    func updates() -> String {
-//        months = formatter.string(from: now)
-//        return months
-//    }
     @State private var interval: Double = 0
     //오늘 날짜에서 이제 몇일? 떨어진 날짜 표시할지 정해주는..
     @State private var isShowingCalender: Bool = false
     @State private var formatter = DateFormatter()
-    
-//    var dateRange: ClosedRange<Date> {
-//        let min = Calendar.current.date(
-//          byAdding: .year,
-//          value: -10,
-//          to: now
-//        )!
-//        let max = Calendar.current.date(
-//          byAdding: .year,
-//          value: 10,
-//          to: now
-//        )!
-//        return min...max
-//    }
+    //@State private var flag = 0
     
     
     var body: some View {
         NavigationStack {
             VStack {
                 List {
-                    ForEach(toDoStore.toDoLists) { toDoList in
-                        ListCell(now: $now, toDoList: toDoList)
+                    ForEach(toDoStore.dateLists, id:\.self) { item in
+                        ListCell(now: item, toDoStore: toDoStore, isShowingCalender: $isShowingCalender)
                     }
                 }
+                .listStyle(.sidebar)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button(action: {
-                            let newToDoList = ToDoList(date: now, checkBoxToDos: [])
-                            toDoStore.toDoLists.append(newToDoList)
-
+                            if toDoStore.dateLists.contains(now) == false {
+                                let checkBoxToDo = CheckBoxToDo(dates: now, toDo: [:], tasks: [])
+                                toDoStore.toDoLists[now] = checkBoxToDo
+                                toDoStore.dateLists.append(now)
+                                
+                                toDoStore.dateLists = toDoStore.dateLists.sorted(by: {
+                                    $0.compare($1) == .orderedAscending
+                                })
+                                //날짜 오름차순으로 저장
+                            }
                         }){
                             Text("Add")
                         }
@@ -127,54 +118,85 @@ struct MonthView: View {
 }
 
 struct ListCell: View {
-    @Binding var now: Date
+    var now: Date
+    @ObservedObject var toDoStore: ToDoStore = ToDoStore()
+    @Binding var isShowingCalender: Bool
+    var mustDo: String = "2"
+    @State private var showTextField = false
+    @State private var alertInput = ""
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
+        formatter.dateFormat = "YYYY년 MM월 dd일"
         return formatter
     }
     
-    var toDoList: ToDoList
-    
     var body: some View {
-        
-        Section(header: Text("\(toDoList.date, formatter: dateFormatter)")) {
-            
-            ForEach (toDoList.checkBoxToDos) { checkBoxToDo in
-                CheckBoxToDoCell(checkBoxToDo: checkBoxToDo)
-                
-            }
-//            .onDelete(perform: deleteItems)
+            Section(header:
+                        HStack {
+                Text("\(now, formatter: dateFormatter)")
+                Button(action: {
+                    //팝업 띄워서 일정 입력받기
+                    //입력한 일정을 toDo에 넣어준다
+                    if isShowingCalender == true {
+                        isShowingCalender.toggle()
+                    }
+                    showTextField = true
+                })
+                {
+                    Image(systemName: "plus")
+                }
+                .alert("To Do", isPresented: $showTextField, actions: {
+                    TextField("할일을 입력하세요", text: $alertInput)
+                    Button("등록", action: {
+                        toDoStore.toDoLists[now]!.toDo[alertInput] = false
+                        if alertInput != "" {
+                            toDoStore.toDoLists[now]!.tasks.append(alertInput)
+                        }
+                    })
+                }, message: {
+                    Text("\(now, formatter: dateFormatter)에 할일을 입력하시오")
+                })
+            })
+            {
+                ForEach(toDoStore.toDoLists[now]!.tasks, id:\.self) { task in
+                    CheckBoxToDoCell(toDoStore: toDoStore, isShowingCalender: $isShowingCalender,tasks: task, dates: now)
+                }
+                .onDelete(perform: deleteItems)
         }
-
-        
+            
     }
-//    func deleteItems(at offets: IndexSet) {
-//        toDoList.checkBoxToDos.remove(atOffsets: offets)
-//        print("Item moved")
-//    }
+    
+    func deleteItems(at offets: IndexSet) {
+        toDoStore.toDoLists[now]!.tasks.remove(atOffsets: offets)
+    }
 }
 
 struct CheckBoxToDoCell: View {
-    
-    @State var checkBoxToDo: CheckBoxToDo
+    @ObservedObject var toDoStore: ToDoStore
+    @Binding var isShowingCalender: Bool
+
+    var tasks: String
+    var dates: Date
     
     var body: some View {
         HStack{
             Button(
                 action: {
-                    self.checkBoxToDo.checkBox.toggle()
+                    toDoStore.toDoLists[dates]!.toDo[tasks]!.toggle()
+                    if isShowingCalender == true {
+                        isShowingCalender.toggle()
+                    }
                 },
                 label: {
                     Image(systemName:
-                            checkBoxToDo.checkBox == true
+                        toDoStore.toDoLists[dates]!.toDo[tasks]! == true
                         ? "xmark.square"
                         : "square"
                     )
                 }
             )
-            Text(checkBoxToDo.toDo)
+            Text(tasks)
         }
     }
 }
