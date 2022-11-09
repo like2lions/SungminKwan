@@ -27,7 +27,7 @@ struct AddModalView: View {
                     .foregroundColor(.brown)
                     .padding()
                 
-                DatePicker(selection: $date, in: ...Date(), displayedComponents: .date) {
+                DatePicker(selection: $date, in: Date()..., displayedComponents: .date) {
                     Text("날짜를 선택하세요")
                 }
                 .padding()
