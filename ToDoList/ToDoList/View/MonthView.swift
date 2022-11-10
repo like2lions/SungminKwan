@@ -51,7 +51,7 @@ struct MonthView: View {
                 }
                 
                 .listStyle(.sidebar)
-                .background(Image("quokkaBack"))
+                .background(Image("quokkaBack").opacity(0.5))
                 .background(Color.brown4)
 
                 .scrollContentBackground(.hidden)
