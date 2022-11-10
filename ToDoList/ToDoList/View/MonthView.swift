@@ -48,6 +48,7 @@ struct MonthView: View {
                     ForEach(toDoStore.dateLists, id:\.self) { item in
                         ListCell(now: item, toDoStore: toDoStore, isShowingCalender: $isShowingCalender)
                     }.listRowBackground(Color.brown1)
+
                 }
                 
                 .listStyle(.sidebar)
@@ -56,9 +57,54 @@ struct MonthView: View {
 
                 .scrollContentBackground(.hidden)
 
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
+//                .toolbar {
+//                    ToolbarItem(placement: .navigationBarLeading) {
+//                        Button(action: {
+//                            if toDoStore.dateLists.contains(now) == false {
+//                                let checkBoxToDo = CheckBoxToDo(dates: now, toDo: [:], tasks: [])
+//                                toDoStore.toDoLists[now] = checkBoxToDo
+//                                toDoStore.dateLists.append(now)
+//
+//                                toDoStore.dateLists = toDoStore.dateLists.sorted(by: {
+//                                    $0.compare($1) == .orderedAscending
+//                                })
+//                                //날짜 오름차순으로 저장
+//                            }
+//                        }){
+//                            Image(systemName: "plus").foregroundColor(.brown1)
+//                        }
+//                    }
+//                    ToolbarItem(placement: .principal) {
+//                        //.principal - 중앙에 배치
+//                        HStack {
+//                            Button(action: {
+//                                LastMonth()
+//                            }){
+//                                Image(systemName: "arrow.left").foregroundColor(.brown1)
+//                            }
+//                            Text(wrappedValue).foregroundColor(.brown1)
+//                            Button(action: {
+//                                NextMonth()
+//                            }){
+//                                Image(systemName: "arrow.right").foregroundColor(.brown1)
+//                            }
+//                        }
+//                    }
+//                    ToolbarItem(placement: .navigationBarTrailing) {
+//                        Button(action: {
+//                            self.isShowingCalender.toggle()
+//                        }){
+//                            Image(systemName: "calendar")
+//                                .resizable()
+//                                .foregroundColor(.brown1)
+//                                .frame(width: 35, height: 30)
+//                        }
+//                    }
+//                }
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        if isShowingCalender {
                             if toDoStore.dateLists.contains(now) == false {
                                 let checkBoxToDo = CheckBoxToDo(dates: now, toDo: [:], tasks: [])
                                 toDoStore.toDoLists[now] = checkBoxToDo
@@ -68,36 +114,17 @@ struct MonthView: View {
                                     $0.compare($1) == .orderedAscending
                                 })
                                 //날짜 오름차순으로 저장
+                                self.isShowingCalender.toggle()
+
                             }
-                        }){
-                            Image(systemName: "plus").foregroundColor(.brown1)
-                        }
-                    }
-                    ToolbarItem(placement: .principal) {
-                        //.principal - 중앙에 배치
-                        HStack {
-                            Button(action: {
-                                LastMonth()
-                            }){
-                                Image(systemName: "arrow.left").foregroundColor(.brown1)
-                            }
-                            Text(wrappedValue).foregroundColor(.brown1)
-                            Button(action: {
-                                NextMonth()
-                            }){
-                                Image(systemName: "arrow.right").foregroundColor(.brown1)
-                            }
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: {
+                        } else {
                             self.isShowingCalender.toggle()
-                        }){
-                            Image(systemName: "calendar")
-                                .resizable()
-                                .foregroundColor(.brown1)
-                                .frame(width: 35, height: 30)
+
                         }
+                    }){
+                        Image(systemName: "plus.circle").foregroundColor(.brown1)
+                            .font(.largeTitle)
+                            .padding(.trailing)
                     }
                 }
                 
@@ -111,7 +138,7 @@ struct MonthView: View {
                     .datePickerStyle(.graphical)
                 }
                 
-            }
+            }.background(Color.brown4)
         }
     }
     
@@ -138,6 +165,8 @@ struct MonthView: View {
         months = formatter.string(from: now)
     }
     
+
+    
 }
 
 struct ListCell: View {
@@ -157,10 +186,12 @@ struct ListCell: View {
     var body: some View {
             Section(header:
                         HStack {
-                Text("\(now, formatter: dateFormatter)")
+                Text("• \(now, formatter: dateFormatter)")
                     .font(.headline)
                     .bold()
                     .foregroundColor(Color.brown1)
+                    
+                
                 Button(action: {
                     //팝업 띄워서 일정 입력받기
                     //입력한 일정을 toDo에 넣어준다
